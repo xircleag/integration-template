@@ -1,0 +1,19 @@
+name: 'Layer Integration Template'
+provider: aws
+
+webhook:
+  type: post-event
+  events:
+    - Message.created
+
+api:
+  permissions: []
+
+input:
+  -
+    key: template_name
+    type: text
+    default: "Default name"
+    name: Template name
+    description: Name of a template for demostration purposes
+    required: true
