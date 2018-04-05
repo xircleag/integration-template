@@ -1,5 +1,5 @@
 name: 'Layer Integration Template'
-provider: aws
+provider: azure
 
 webhook:
   type: post-event
@@ -11,9 +11,9 @@ api:
 
 input:
   -
-    key: template_name
+    key: service_key
     type: text
-    default: "Default name"
-    name: Template name
-    description: Name of a template for demostration purposes
+    default: "fake-key"
+    name: Fake Service Key (can be anything)
+    description: This input is for demostration purposes
     required: true

@@ -13,11 +13,7 @@ const layerIDK = new LayerIDK(configJSON)
 // Fake service key from config
 const serviceKey = configJSON.service_key
 
-/**
- * Webhook payload handler
- * https://docs.layer.com/reference/webhooks/payloads
- */
-exports.webhook = (event, context, callback) => {
+exports.webhook = (context, req) => {
 
   // Initialize IDK logger by passing the function context
   const log = layerIDK.logger(context)
@@ -36,35 +32,38 @@ exports.webhook = (event, context, callback) => {
 
     /**
      * Fetch full user identity object from API
-     * Handle Promise and invoke the callback function when done
+     * Handle Promise and invoke the done function when done
      */
     layerIDK.api.identities.get(senderId)
       .then(({ data }) => {
         log.info('Webhook: Sender full identity:', data)
-        callback(null, { statusCode: 200 })
+
+        context.res = { status: 200 }
+        context.done()
       })
       .catch((err) => {
         if (err.response) log.error(`Webhook: HTTP ${err.response.status}`, err.response.data)
         else log.error('Webhook:', err)
-        callback(new Error('Error processing Webhook'))
+        context.res = { status: 500 }
+        context.done()
       })
   } catch (err) {
     log.error('Webhook:', err)
-    callback(err)
+    context.res = { status: 500 }
+    context.done()
   }
 }
 
-/**
- * Webhook verification handler
- * https://docs.layer.com/reference/webhooks/rest.out#verify
- */
-exports.verify = (event, context, callback) => {
+exports.verify = (context, req) => {
   const log = layerIDK.logger(context)
-  const query = event.queryStringParameters
+  const query = req.query
 
   log.info('Verify:', query)
-  callback(null, {
-    statusCode: query ? 200 : 400,
-    body: query ? query.verification_challenge : 'Missing `verification_challenge` URL query parameter'
-  })
+  context.res = {
+    status: query ? 200 : 400,
+    headers: { 'Content-Type': 'text/plain' },
+    body: query ? query.verification_challenge : 'Missing `verification_challenge` URL query parameter',
+    isRaw: true
+  }
+  context.done()
 }

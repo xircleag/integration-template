@@ -1,0 +1,19 @@
+name: 'Layer Integration Template'
+provider: aws
+
+webhook:
+  type: post-event
+  events:
+    - Message.created
+
+api:
+  permissions: []
+
+input:
+  -
+    key: service_key
+    type: text
+    default: "fake-key"
+    name: Fake Service Key (can be anything)
+    description: This input is for demostration purposes
+    required: true

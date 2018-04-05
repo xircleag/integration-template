@@ -13,14 +13,11 @@ package:
     - README.md
     - .git/**
 
-plugins:
-  - serverless-mocha-plugin
-
 functions:
   webhook:
     handler: src/handlers.webhook
     name: ${self:service}-webhook
-    description: 'Webhook capture endpoint'
+    description: 'Webhook payload endpoint'
     events:
       - http:
           path: /

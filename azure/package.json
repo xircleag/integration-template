@@ -1,5 +1,5 @@
 {
-  "name": "integration-template-aws",
+  "name": "integration-template-azure",
   "version": "1.0.0",
   "scripts": {
     "deploy": "npm install; serverless deploy"
