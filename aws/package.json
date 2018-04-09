@@ -2,7 +2,8 @@
   "name": "integration-template-aws",
   "version": "1.0.0",
   "scripts": {
-    "deploy": "npm install; serverless deploy"
+    "deploy": "npm install; serverless deploy",
+    "logs": "serverless logs -f webhook -t"
   },
   "dependencies": {
     "@layerhq/idk": "^1.0.0"

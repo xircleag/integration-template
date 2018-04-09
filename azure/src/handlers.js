@@ -23,7 +23,7 @@ exports.webhook = (context, req) => {
      * Verify and parse webhook payload
      * https://github.com/layerhq/idk#webhook
      */
-    const webhook = layerIDK.webhook(event.headers, event.body)
+    const webhook = layerIDK.webhook(req.headers, req.body)
 
     log.info(`Webhook: ${webhook.event.type} (${serviceKey})`)
 

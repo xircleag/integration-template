@@ -12,4 +12,4 @@ Install [layer-integrations](https://www.npmjs.com/package/layer-integrations) C
 
 Access Serverless [function logs](https://serverless.com/framework/docs/providers/azure/cli-reference/logs/) so you can monitor your integration:
 
-    serverless logs -f webhook -t
+    npm run logs
