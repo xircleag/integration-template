@@ -10,9 +10,6 @@ const LayerIDK = require('@layerhq/idk')
 const configJSON = require(process.env.LAYER_CONFIG || './layer_config.json')
 const layerIDK = new LayerIDK(configJSON)
 
-// Fake service key from config
-const serviceKey = configJSON.service_key
-
 exports.webhook = (context, req) => {
 
   // Initialize IDK logger by passing the function context
@@ -25,7 +22,7 @@ exports.webhook = (context, req) => {
      */
     const webhook = layerIDK.webhook(req.headers, req.body)
 
-    log.info(`Webhook: ${webhook.event.type} (${serviceKey})`)
+    log.info(`Webhook: ${webhook.event.type}`)
 
     // Get sender ID
     const senderId = webhook.message.sender.id
